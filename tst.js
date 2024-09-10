@@ -22,22 +22,23 @@ function isTokenExpired(token) {
   return decodedToken.exp < currentTime
 }
 
-function remove_expired_token_from_localStorage() {
-  if (isTokenExpired(localStorage.getItem("token"))) {
-    console.log("Token is expired, removing token from localStorage.")
-    localStorage.removeItem("token")
+function remove_expired_token_from_sessionStorage() {
+  if (isTokenExpired(sessionStorage.getItem("token"))) {
+    console.log("Token is expired, removing token from sessionStorage.")
+    sessionStorage.removeItem("token")
   }
 }
 
-remove_expired_token_from_localStorage()
-let token = localStorage.getItem("token") || ""
+remove_expired_token_from_sessionStorage()
+
+let token = sessionStorage.getItem("token") || ""
 const api_url = "http://127.0.0.1:8000"
 // Login function
 function login() {
   const username = document.getElementById("username").value
   const password = document.getElementById("password").value
 
-  fetch(`${api_url}/token`, {
+  fetch(`${api_url}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -48,7 +49,7 @@ function login() {
     .then((data) => {
       if (data.access_token) {
         token = data.access_token
-        localStorage.setItem("token", token)
+        sessionStorage.setItem("token", token)
         document.getElementById("loginStatus").innerText = "Login successful!"
         fetchEmployees()
       } else {
@@ -64,7 +65,7 @@ function createUser() {
   const fullName = document.getElementById("newFullName").value
   const password = document.getElementById("newPassword").value
 
-  fetch(`${api_url}/users/`, {
+  fetch(`${api_url}/auth/users/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -91,7 +92,7 @@ function createUser() {
 
 // Fetch and display all employees
 function fetchEmployees() {
-  fetch(`${api_url}/employees/`, {
+  fetch(`${api_url}/employees/employees/`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -114,7 +115,7 @@ function createEmployee() {
   const position = document.getElementById("empPosition").value
   const salary = document.getElementById("empSalary").value
 
-  fetch(`${api_url}/employees/`, {
+  fetch(`${api_url}/employees/employees/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -143,7 +144,7 @@ function updateEmployee() {
   const position = document.getElementById("updateEmpPosition").value
   const salary = document.getElementById("updateEmpSalary").value
 
-  fetch(`${api_url}/employees/${empId}`, {
+  fetch(`${api_url}/employees/employees/${empId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -152,11 +153,12 @@ function updateEmployee() {
     body: JSON.stringify({
       name: name,
       position: position,
-      salary: salary,
+      salary: salary || 0,
     }),
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data)
       document.getElementById(
         "actionStatus"
       ).innerText = `Employee ${data.name} updated successfully!`
@@ -169,7 +171,7 @@ function updateEmployee() {
 function deleteEmployee() {
   const empId = document.getElementById("deleteEmpId").value
 
-  fetch(`${api_url}/employees/${empId}`, {
+  fetch(`${api_url}/employees/employees/${empId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
