@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FastAPI Employee Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    input,
+    button {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>FastAPI Employee Management</h2>
+
+    <!-- User Login Section -->
+    <h3>Login</h3>
+    <div>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+    </div>
+    <div id="loginStatus"></div>
+
+    <!-- Create New User -->
+    <h3>Create New User</h3>
+    <div>
+      <input type="text" id="newUsername" placeholder="New Username">
+      <input type="text" id="newFullName" placeholder="Full Name">
+      <input type="password" id="newPassword" placeholder="Password">
+      <button onclick="createUser()">Create User</button>
+    </div>
+    <div id="createUserStatus"></div>
+
+    <!-- Employee Section -->
+    <h3>Employee Management</h3>
+    <div>
+      <input type="text" id="empName" placeholder="Employee Name">
+      <input type="text" id="empPosition" placeholder="Position">
+      <input type="number" id="empSalary" placeholder="Salary">
+      <button onclick="createEmployee()">Create Employee</button>
+    </div>
+
+    <h4>Employees:</h4>
+    <div id="employees"></div>
+
+    <h3>Update Employee</h3>
+    <div>
+      <input type="number" id="updateEmpId" placeholder="Employee ID">
+      <input type="text" id="updateEmpName" placeholder="Employee Name">
+      <input type="text" id="updateEmpPosition" placeholder="Position">
+      <input type="number" id="updateEmpSalary" placeholder="Salary">
+      <button onclick="updateEmployee()">Update Employee</button>
+    </div>
+
+    <h3>Delete Employee</h3>
+    <div>
+      <input type="number" id="deleteEmpId" placeholder="Employee ID">
+      <button onclick="deleteEmployee()">Delete Employee</button>
+    </div>
+
+    <div id="actionStatus"></div>
+  </div>
+
+  <script src="tst.js"></script>
+</body>
+
+</html>
