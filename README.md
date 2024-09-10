@@ -1,5 +1,7 @@
 # FastAPI Authentication Project
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 This project implements a robust authentication system using FastAPI, a modern, fast (high-performance) web framework for building APIs with Python 3.6+ based on standard Python type hints. Use it as a template for fastapi projects.
 
 ## Features
@@ -63,7 +65,7 @@ This project implements a robust authentication system using FastAPI, a modern, 
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` file for more information.
+Distributed under the MIT License.
 
 ---
 
